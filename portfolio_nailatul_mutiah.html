@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f2eb" />
+  <meta name="description" content="Portofolio pribadi Nailatul Muti'ah, mahasiswa Teknologi Rekayasa Perangkat Lunak." />
+  <title>Nailatul Muti'ah — Personal Portfolio</title>
+  <style>
+    :root {
+      --paper: #f5f2eb;
+      --paper-deep: #ebe6dc;
+      --ink: #252923;
+      --muted: #73776d;
+      --green: #365b49;
+      --green-dark: #254434;
+      --sage: #dce5d8;
+      --orange: #c87550;
+      --line: rgba(37, 41, 35, .14);
+      --white: #fffefa;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: 'Aptos', 'Segoe UI', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 82px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { font-weight: 750; letter-spacing: -.04em; font-size: 1.05rem; }
+    .brand span { color: var(--orange); }
+    .nav { display: flex; align-items: center; gap: 30px; }
+    .nav a { color: #555b52; font-size: .9rem; transition: color .2s ease; }
+    .nav a:hover { color: var(--orange); }
+    .nav .nav-cta {
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      padding: 9px 17px;
+      color: var(--green);
+    }
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.18fr .82fr;
+      align-items: center;
+      gap: 64px;
+      padding: 88px 0 96px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--orange); }
+    h1 {
+      margin: 20px 0 22px;
+      max-width: 690px;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 500;
+      letter-spacing: -.065em;
+      line-height: .99;
+    }
+    h1 em { color: var(--green); font-weight: 500; }
+    .hero-copy { max-width: 570px; color: #64685f; font-size: 1.06rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--green);
+      background: var(--green);
+      color: white;
+      font-size: .9rem;
+      font-weight: 650;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: var(--green-dark); }
+    .btn.secondary { color: var(--green); background: transparent; }
+    .btn.secondary:hover { background: var(--sage); }
+
+    .profile-art {
+      position: relative;
+      min-height: 390px;
+      display: grid;
+      place-items: center;
+    }
+    .art-card {
+      position: relative;
+      width: min(100%, 350px);
+      aspect-ratio: 4 / 4.7;
+      padding: 25px;
+      border-radius: 48% 48% 20px 20px;
+      background: var(--sage);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .art-card::before {
+      content: '';
+      position: absolute;
+      width: 245px;
+      height: 245px;
+      border: 1px solid rgba(54, 91, 73, .24);
+      border-radius: 50%;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .art-circle {
+      position: absolute;
+      width: 178px;
+      height: 178px;
+      border-radius: 50%;
+      background: var(--orange);
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: .92;
+    }
+    .art-plant {
+      position: absolute;
+      z-index: 1;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 170px;
+      height: 205px;
+    }
+    .art-plant span {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 5px;
+      height: 150px;
+      border-radius: 10px;
+      background: var(--green-dark);
+      transform-origin: bottom;
+    }
+    .art-plant span:nth-child(1) { transform: rotate(-34deg); height: 125px; }
+    .art-plant span:nth-child(2) { transform: rotate(-13deg); height: 160px; }
+    .art-plant span:nth-child(3) { transform: rotate(13deg); height: 155px; }
+    .art-plant span:nth-child(4) { transform: rotate(34deg); height: 125px; }
+    .art-plant i {
+      position: absolute;
+      width: 44px;
+      height: 23px;
+      border-radius: 100% 0 100% 0;
+      background: var(--green);
+    }
+    .art-plant i:nth-of-type(1) { top: 65px; left: 24px; transform: rotate(20deg); }
+    .art-plant i:nth-of-type(2) { top: 38px; left: 48px; transform: rotate(-25deg) scaleX(-1); }
+    .art-plant i:nth-of-type(3) { top: 28px; right: 27px; transform: rotate(15deg); }
+    .art-plant i:nth-of-type(4) { top: 82px; right: 15px; transform: rotate(-12deg) scaleX(-1); }
+    .art-note {
+      position: relative;
+      z-index: 2;
+      align-self: flex-start;
+      color: var(--green-dark);
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-style: italic;
+    }
+    .floating-note {
+      position: absolute;
+      right: -12px;
+      bottom: 48px;
+      padding: 13px 17px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--white);
+      color: var(--muted);
+      font-size: .78rem;
+      box-shadow: 0 12px 35px rgba(37, 41, 35, .07);
+      transform: rotate(3deg);
+    }
+    .floating-note strong { display: block; color: var(--green); font-size: .95rem; }
+
+    section { padding: 82px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 35px; }
+    .section-kicker { color: var(--orange); font-size: .76rem; text-transform: uppercase; letter-spacing: .15em; font-weight: 750; }
+    h2 { margin: 8px 0 0; font: 500 clamp(2.1rem, 4vw, 3.25rem)/1.08 var(--serif); letter-spacing: -.045em; }
+    .section-intro { max-width: 390px; margin: 0; color: var(--muted); font-size: .94rem; }
+    .about-section { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 74px; align-items: start; }
+    .about-label {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+    .about-label .big-number { font: 500 4rem/1 var(--serif); color: var(--green); }
+    .about-label p { margin: 13px 0 0; color: var(--muted); font-size: .9rem; }
+    .about-text { color: #62675e; font-size: 1.02rem; }
+    .about-text p:first-child { margin-top: 0; }
+    .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 17px 26px; margin-top: 28px; }
+    .fact { border-top: 1px solid var(--line); padding-top: 12px; }
+    .fact small { display: block; color: var(--muted); font-size: .76rem; margin-bottom: 4px; }
+    .fact strong { color: var(--ink); font-weight: 650; font-size: .94rem; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .skill-card {
+      min-height: 220px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(255,255,255,.45);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .skill-card:hover { transform: translateY(-4px); background: var(--white); }
+    .skill-num { color: var(--orange); font: italic 1.1rem var(--serif); }
+    .skill-card h3 { margin: 27px 0 8px; font: 500 1.55rem var(--serif); }
+    .skill-card p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .skill-level { display: inline-block; margin-top: 17px; padding: 5px 10px; border-radius: 99px; background: var(--sage); color: var(--green-dark); font-size: .7rem; font-weight: 700; }
+
+    .projects-section { background: var(--green-dark); color: #f7f5ee; }
+    .projects-section .section-kicker { color: #e2a181; }
+    .projects-section .section-intro { color: rgba(247,245,238,.68); }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-card { padding: 25px; border: 1px solid rgba(255,255,255,.2); border-radius: 17px; background: rgba(255,255,255,.055); display: flex; flex-direction: column; min-height: 285px; }
+    .project-top { display: flex; justify-content: space-between; gap: 12px; color: #e4b194; font-size: .76rem; }
+    .project-card h3 { margin: 38px 0 10px; font: 500 1.65rem/1.15 var(--serif); }
+    .project-card p { margin: 0; color: rgba(247,245,238,.7); font-size: .88rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; padding-top: 25px; }
+    .project-tags span { border: 1px solid rgba(255,255,255,.25); border-radius: 99px; padding: 5px 9px; color: rgba(247,245,238,.85); font-size: .68rem; }
+    .project-note { margin: 20px 0 0; color: rgba(247,245,238,.56); font-size: .78rem; }
+
+    .journey { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .journey-quote { padding: 30px; border-left: 2px solid var(--orange); background: var(--sage); border-radius: 0 16px 16px 0; }
+    .journey-quote p { margin: 0; font: italic 1.55rem/1.4 var(--serif); color: var(--green-dark); }
+    .journey-quote span { display: block; margin-top: 17px; color: #657568; font-size: .78rem; }
+    .journey-copy { color: var(--muted); }
+
+    .contact-section { padding-top: 55px; }
+    .contact-panel { padding: 48px; border-radius: 22px; background: var(--paper-deep); display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .contact-panel h2 { max-width: 520px; }
+    .contact-panel p { max-width: 480px; color: var(--muted); margin-bottom: 0; }
+    footer { padding: 28px 0 35px; color: var(--muted); font-size: .8rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); padding-top: 22px; }
+
+    .fade-up { opacity: 0; transform: translateY(14px); transition: opacity .65s ease, transform .65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .fade-up { opacity: 1; transform: none; }
+    }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; gap: 25px; padding: 62px 0 70px; }
+      .profile-art { min-height: 330px; }
+      .art-card { max-width: 300px; }
+      .floating-note { right: max(0px, calc((100% - 300px) / 2 - 15px)); }
+      .about-grid, .journey { grid-template-columns: 1fr; gap: 30px; }
+      .skills-grid, .project-grid { grid-template-columns: 1fr 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+      .contact-panel { align-items: flex-start; flex-direction: column; padding: 34px; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 34px, 1120px); }
+      .topbar { min-height: 70px; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .nav {
+        display: none;
+        position: absolute;
+        z-index: 5;
+        top: 70px;
+        left: 17px;
+        right: 17px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: var(--white);
+        box-shadow: 0 15px 30px rgba(37,41,35,.08);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+      }
+      .nav.open { display: flex; }
+      .nav .nav-cta { text-align: center; }
+      h1 { font-size: clamp(3rem, 16vw, 4.5rem); }
+      section { padding: 65px 0; }
+      .skills-grid, .project-grid { grid-template-columns: 1fr; }
+      .skill-card { min-height: 190px; }
+      .project-card { min-height: 250px; }
+      .facts { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#beranda">nailatul<span>.</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav class="nav" id="mainNav" aria-label="Navigasi utama">
+      <a href="#tentang">Tentang</a>
+      <a href="#keahlian">Keahlian</a>
+      <a href="#projek">Projek</a>
+      <a href="#perjalanan">Perjalanan</a>
+      <a class="nav-cta" href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap hero" id="beranda">
+      <div class="fade-up">
+        <div class="eyebrow">Halo, selamat datang</div>
+        <h1>Hai, saya<br /><em>Nailatul Muti'ah.</em></h1>
+        <p class="hero-copy">Mahasiswa Teknologi Rekayasa Perangkat Lunak yang sedang belajar membuat sesuatu dari baris-baris kode. Saya tertarik pada pembuatan website dan senang mengeksplorasi hal baru di dunia teknologi.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#projek">Lihat projek <span aria-hidden="true">↗</span></a>
+          <a class="btn secondary" href="#tentang">Kenal lebih dekat</a>
+        </div>
+      </div>
+      <div class="profile-art fade-up" aria-label="Ilustrasi tanaman dengan latar lingkaran hangat">
+        <div class="art-card">
+          <div class="art-circle"></div>
+          <div class="art-plant" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <i></i><i></i><i></i><i></i>
+          </div>
+          <div class="art-note">small steps, steady growth.</div>
+        </div>
+        <div class="floating-note"><strong>Semester 1</strong>Politeknik Indonusa Surakarta</div>
+      </div>
+    </section>
+
+    <section class="about-section" id="tentang">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <div><div class="section-kicker">Sedikit tentang saya</div><h2>Masih belajar,<br />terus bertumbuh.</h2></div>
+          <p class="section-intro">Bagi saya, setiap hal baru adalah kesempatan untuk berkembang—termasuk saat mencoba memahami dunia pemrograman.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-label fade-up">
+            <div class="big-number">01</div>
+            <p>Langkah pertama dalam perjalanan saya di dunia teknologi dan pengembangan perangkat lunak.</p>
+          </div>
+          <div class="about-text fade-up">
+            <p>Perkenalkan, saya <strong>Nailatul Muti'ah</strong>, mahasiswa semester 1 di <strong>Politeknik Indonusa Surakarta</strong>, Program Studi <strong>Teknologi Rekayasa Perangkat Lunak</strong>.</p>
+            <p>Saat ini saya sedang membangun dasar pemahaman tentang pemrograman, terutama dalam pembuatan website. Saya ingin belajar bagaimana sebuah halaman web dirancang agar tidak hanya terlihat menarik, tetapi juga nyaman digunakan.</p>
+            <p>Portofolio ini menjadi tempat untuk memperkenalkan diri, mencatat proses belajar, dan mengumpulkan projek yang akan terus saya kembangkan.</p>
+            <div class="facts">
+              <div class="fact"><small>Nama</small><strong>Nailatul Muti'ah</strong></div>
+              <div class="fact"><small>Kampus</small><strong>Politeknik Indonusa Surakarta</strong></div>
+              <div class="fact"><small>Program studi</small><strong>Teknologi Rekayasa Perangkat Lunak</strong></div>
+              <div class="fact"><small>Semester</small><strong>1 (Satu)</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="keahlian">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <div><div class="section-kicker">Yang sedang saya pelajari</div><h2>Keahlian & teknologi.</h2></div>
+          <p class="section-intro">Saya sedang memperkuat kemampuan dasar front-end agar bisa membuat website yang rapi, responsif, dan mudah dipakai.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card fade-up">
+            <div class="skill-num">01 / Markup</div>
+            <h3>HTML</h3>
+            <p>Menyusun struktur halaman web dengan elemen yang jelas dan tertata.</p>
+            <span class="skill-level">Dasar</span>
+          </article>
+          <article class="skill-card fade-up">
+            <div class="skill-num">02 / Styling</div>
+            <h3>CSS</h3>
+            <p>Mengatur warna, tata letak, tipografi, dan tampilan website agar nyaman dilihat.</p>
+            <span class="skill-level">Dasar</span>
+          </article>
+          <article class="skill-card fade-up">
+            <div class="skill-num">03 / Interaction</div>
+            <h3>JavaScript</h3>
+            <p>Mempelajari cara menambahkan interaksi dan fungsi sederhana pada website.</p>
+            <span class="skill-level">Tahap belajar</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-section" id="projek">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <div><div class="section-kicker">Ruang eksperimen</div><h2>Projek & latihan.</h2></div>
+          <p class="section-intro">Beberapa ide latihan yang bisa menjadi bagian dari perjalanan belajar saya di bidang pengembangan website.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card fade-up">
+            <div class="project-top"><span>01 — Personal</span><span>Portofolio</span></div>
+            <h3>Website Profil Pribadi</h3>
+            <p>Website sederhana untuk memperkenalkan diri, menampilkan kemampuan, dan mendokumentasikan proses belajar.</p>
+            <div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          </article>
+          <article class="project-card fade-up">
+            <div class="project-top"><span>02 — Web Design</span><span>Latihan</span></div>
+            <h3>Landing Page</h3>
+            <p>Latihan membuat halaman promosi sederhana dengan susunan informasi yang jelas dan tampilan responsif.</p>
+            <div class="project-tags"><span>HTML</span><span>CSS</span><span>Responsive</span></div>
+          </article>
+          <article class="project-card fade-up">
+            <div class="project-top"><span>03 — Mini App</span><span>Rencana belajar</span></div>
+            <h3>To-do List</h3>
+            <p>Eksplorasi JavaScript untuk membuat daftar kegiatan yang bisa ditambah, ditandai selesai, dan dihapus.</p>
+            <div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          </article>
+        </div>
+        <p class="project-note">Catatan: dua projek terakhir adalah ide latihan/pengembangan, bukan klaim projek yang sudah selesai dibuat.</p>
+      </div>
+    </section>
+
+    <section id="perjalanan">
+      <div class="wrap journey">
+        <div class="fade-up">
+          <div class="section-kicker">Prinsip saya</div>
+          <h2>Pelan-pelan,<br />asal terus mencoba.</h2>
+        </div>
+        <div class="fade-up">
+          <div class="journey-quote">
+            <p>“Jadilah versi terbaik dari dirimu.”</p>
+            <span>Pengingat untuk terus berkembang</span>
+          </div>
+          <p class="journey-copy">Saya percaya kemampuan tidak datang sekaligus. Saya ingin terus berlatih, berani mencoba, dan belajar dari setiap kesalahan agar bisa menghasilkan karya yang semakin baik.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap contact-section" id="kontak">
+      <div class="contact-panel fade-up">
+        <div>
+          <div class="section-kicker">Mari terhubung</div>
+          <h2>Terima kasih sudah mampir.</h2>
+          <p>Saya terbuka untuk belajar, bertukar ide, dan berkolaborasi dalam projek sederhana seputar website.</p>
+        </div>
+        <a class="btn" href="#beranda">Kembali ke atas ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Nailatul Muti'ah</span>
+      <span>Dibuat dengan HTML, CSS, dan JavaScript.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Menu navigasi untuk tampilan HP
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? '×' : '☰';
+    });
+
+    // Tutup menu setelah salah satu tautan dipilih
+    mainNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.textContent = '☰';
+      });
+    });
+
+    // Tahun footer otomatis mengikuti tahun saat website dibuka
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Efek muncul halus saat bagian halaman terlihat
+    const items = document.querySelectorAll('.fade-up');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach((item) => observer.observe(item));
+    } else {
+      items.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
